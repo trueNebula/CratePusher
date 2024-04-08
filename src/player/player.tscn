@@ -1,0 +1,156 @@
+[gd_scene load_steps=21 format=3 uid="uid://detiu8koqc7wi"]
+
+[ext_resource type="Script" path="res://src/player/player.gd" id="1_hhb3i"]
+[ext_resource type="Texture2D" uid="uid://bbmkr8prtej7q" path="res://src/player/assets/idle/player-idle-1.png" id="2_ce0su"]
+[ext_resource type="Texture2D" uid="uid://dexio45fdnvtc" path="res://src/player/assets/idle/player-idle-2.png" id="3_ycy6u"]
+[ext_resource type="Texture2D" uid="uid://cunphvgvicwrx" path="res://src/player/assets/idle/player-idle-3.png" id="4_d6y4k"]
+[ext_resource type="Texture2D" uid="uid://da7bqp24kx6hh" path="res://src/player/assets/idle/player-idle-4.png" id="5_q6mxy"]
+[ext_resource type="Texture2D" uid="uid://ghnyt1s5caj0" path="res://src/player/assets/jump/player-jump-2.png" id="6_lnk2b"]
+[ext_resource type="Texture2D" uid="uid://wf5lwewbrori" path="res://src/player/assets/jump/player-jump-1.png" id="7_fxmds"]
+[ext_resource type="Texture2D" uid="uid://cj66be8tr0r0f" path="res://src/player/assets/run/player-run-1.png" id="8_45xih"]
+[ext_resource type="Texture2D" uid="uid://byn5wem1maw84" path="res://src/player/assets/run/player-run-2.png" id="9_fvv7c"]
+[ext_resource type="Texture2D" uid="uid://2olt2wxl6c7x" path="res://src/player/assets/run/player-run-3.png" id="10_1x8ec"]
+[ext_resource type="Texture2D" uid="uid://djvjx2ajg7jvb" path="res://src/player/assets/run/player-run-4.png" id="11_l5ub7"]
+[ext_resource type="Texture2D" uid="uid://ddnhmtks0wpm1" path="res://src/player/assets/run/player-run-5.png" id="12_oiwgp"]
+[ext_resource type="Texture2D" uid="uid://p5hvapl7m21l" path="res://src/player/assets/run/player-run-6.png" id="13_bfofo"]
+[ext_resource type="Script" path="res://src/state_machine/stateMachine.gd" id="14_718fd"]
+[ext_resource type="Script" path="res://src/player/states/idle.gd" id="15_d33df"]
+[ext_resource type="Script" path="res://src/player/states/walk.gd" id="16_ptn8v"]
+[ext_resource type="Script" path="res://src/player/states/jump.gd" id="17_jqnwc"]
+[ext_resource type="Script" path="res://src/player/states/fall.gd" id="18_31n4p"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8bmdf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ce0su")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ycy6u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_d6y4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_q6mxy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_lnk2b")
+}],
+"loop": true,
+"name": &"fall",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ce0su")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ycy6u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_d6y4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_q6mxy")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_fxmds")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_45xih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_fvv7c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_1x8ec")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_l5ub7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_oiwgp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_bfofo")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2pp55"]
+radius = 5.0
+height = 14.0
+
+[node name="player" type="CharacterBody2D"]
+position = Vector2(0, -16)
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_hhb3i")
+
+[node name="Animations" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_8bmdf")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 9)
+shape = SubResource("CapsuleShape2D_2pp55")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("starting_state")]
+script = ExtResource("14_718fd")
+starting_state = NodePath("idle")
+
+[node name="idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "jump_state", "fall_state")]
+script = ExtResource("15_d33df")
+walk_state = NodePath("../walk")
+jump_state = NodePath("../jump")
+fall_state = NodePath("../fall")
+animation_name = "idle"
+move_speed = 125.0
+
+[node name="walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("jump_state", "idle_state", "fall_state")]
+script = ExtResource("16_ptn8v")
+jump_state = NodePath("../jump")
+idle_state = NodePath("../idle")
+fall_state = NodePath("../fall")
+animation_name = "walk"
+move_speed = 125.0
+
+[node name="jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "idle_state", "fall_state")]
+script = ExtResource("17_jqnwc")
+jump_force = 275.0
+fall_multiplier = 1.5
+fall_animation_name = "fall"
+walk_state = NodePath("../walk")
+idle_state = NodePath("../idle")
+fall_state = NodePath("../fall")
+animation_name = "jump"
+move_speed = 125.0
+
+[node name="fall" type="Node" parent="StateMachine" node_paths=PackedStringArray("walk_state", "idle_state", "jump_state")]
+script = ExtResource("18_31n4p")
+coyote_time = 0.05
+jump_buffer_time = 0.15
+walk_state = NodePath("../walk")
+idle_state = NodePath("../idle")
+jump_state = NodePath("../jump")
+animation_name = "fall"
+move_speed = 125.0

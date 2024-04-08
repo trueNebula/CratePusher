@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4sc15ubkorc2"]
+
+[ext_resource type="PackedScene" uid="uid://cwgjh2q1l7cxa" path="res://src/objects/pushables/pushable.tscn" id="1_00mka"]
+[ext_resource type="Texture2D" uid="uid://durq7v07qq8cl" path="res://src/objects/pushables/pushableCrate/assets/crate.png" id="2_878rx"]
+
+[node name="PushableCrate" instance=ExtResource("1_00mka")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_878rx")

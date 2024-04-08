@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcpsl7d8rdadn"]
+
+[ext_resource type="PackedScene" uid="uid://bwpkorjfusdd2" path="res://src/objects/interactable.tscn" id="1_5rytn"]
+[ext_resource type="Script" path="res://src/objects/interactables/lever/lever.gd" id="1_ogulo"]
+[ext_resource type="Texture2D" uid="uid://r14v7rl7qrip" path="res://src/objects/interactables/lever/assets/crank-up.png" id="2_cjlen"]
+[ext_resource type="Texture2D" uid="uid://c3eo2igkxn8i4" path="res://src/objects/interactables/lever/assets/crank-down.png" id="3_jeo73"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8g3mw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cjlen")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_jeo73")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Lever" instance=ExtResource("1_5rytn")]
+collision_layer = 4
+script = ExtResource("1_ogulo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(-3, -8)
+sprite_frames = SubResource("SpriteFrames_8g3mw")
+frame_progress = 0.359721
+speed_scale = 0.0
+
+[connection signal="interacted" from="." to="." method="_on_interacted"]

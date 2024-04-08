@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwgjh2q1l7cxa"]
+
+[ext_resource type="Script" path="res://src/objects/pushables/pushable.gd" id="1_5dnag"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tps12"]
+size = Vector2(15, 15)
+
+[node name="Pushable" type="CharacterBody2D"]
+script = ExtResource("1_5dnag")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_tps12")
