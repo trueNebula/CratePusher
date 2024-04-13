@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://clgd0dsvmh5qe"
-path="res://.godot/imported/cherry-4.png-35e467b6d6a6f9402e3a629246f02a3b.ctex"
+uid="uid://gkdpihy88jsx"
+path="res://.godot/imported/cherry-6.png-42281cad15ee0c0ea55f07f634e692bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Sunnyland/sprites/cherry/cherry-4.png"
-dest_files=["res://.godot/imported/cherry-4.png-35e467b6d6a6f9402e3a629246f02a3b.ctex"]
+source_file="res://src/objects/collectables/cherry/assets/cherry-6.png"
+dest_files=["res://.godot/imported/cherry-6.png-42281cad15ee0c0ea55f07f634e692bb.ctex"]
 
 [params]
 

@@ -15,13 +15,13 @@ var animation: AnimationPlayer = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-    if not closed_path:
-        animation.speed_scale = speed_scale
-        set_process(false)
+	if not closed_path:
+		animation.speed_scale = speed_scale
+		set_process(false)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-    if affectable and not start:
-        return
-        
-    path.progress += speed * delta
+	if affectable and not start:
+		return
+		
+	path.progress += speed * delta

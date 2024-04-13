@@ -6,6 +6,6 @@ var animation = $AnimatedSprite2D
 var child = $Affected
 
 func _on_interacted() -> void:
-    animation.frame = 1
-    if child:
-        child.affect()
+	animation.frame = 1
+	if child:
+		child.affect()

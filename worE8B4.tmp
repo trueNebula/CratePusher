@@ -1,14 +1,14 @@
 [gd_scene load_steps=14 format=3 uid="uid://k1jfv42mo2tu"]
 
 [ext_resource type="PackedScene" uid="uid://detiu8koqc7wi" path="res://src/player/player.tscn" id="1_kcp8y"]
-[ext_resource type="PackedScene" uid="uid://cnms7nr8vt8cb" path="res://src/hud/hud.tscn" id="1_kwf57"]
 [ext_resource type="Texture2D" uid="uid://b0jfsbg5328jm" path="res://assets/Sunnyland/environment/tileset.png" id="2_wrox7"]
 [ext_resource type="Texture2D" uid="uid://veu23i2fep4u" path="res://assets/Sunnyland/environment/Background/back.png" id="3_m187a"]
 [ext_resource type="Texture2D" uid="uid://o0f5qnmnfx8b" path="res://assets/Sunnyland/environment/Background/middle.png" id="4_qdstd"]
 [ext_resource type="PackedScene" uid="uid://dcpsl7d8rdadn" path="res://src/objects/interactables/lever/lever.tscn" id="5_77o23"]
 [ext_resource type="PackedScene" uid="uid://vqlse8r4800k" path="res://src/objects/moveables/moveableBox/moveable_box.tscn" id="6_yx6a7"]
 [ext_resource type="PackedScene" uid="uid://c4sc15ubkorc2" path="res://src/objects/pushables/pushableCrate/pushable_crate.tscn" id="7_wu0b4"]
-[ext_resource type="PackedScene" uid="uid://nogf5g3s87ck" path="res://src/objects/collectables/cherry/cherry.tscn" id="9_r05v6"]
+[ext_resource type="Script" path="res://src/hud/hud.gd" id="8_d2n8x"]
+[ext_resource type="FontFile" uid="uid://7prgobfxql3c" path="res://src/hud/assets/AGoblinAppears-o2aV.ttf" id="9_1j5gm"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_y0wk6"]
 tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 3, 131072, 65536, 5, 1, 196608, 1, 65537, 196608, 3, 131073, 196608, 5, 2, 327680, 1, 65538, 327680, 3, 131074, 327680, 5)
@@ -515,10 +515,6 @@ limit_right = 144
 limit_bottom = 80
 editor_draw_limits = true
 
-[node name="HUD" parent="." instance=ExtResource("1_kwf57")]
-offset = Vector2(-140, -80)
-transform = Transform2D(1, 0, 0, 1, -140, -80)
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_atqs4")
 format = 2
@@ -547,6 +543,7 @@ rotation = 3.14159
 rotation = -3.14159
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 
@@ -567,11 +564,22 @@ texture = ExtResource("4_qdstd")
 [node name="PushableCrate" parent="." instance=ExtResource("7_wu0b4")]
 position = Vector2(8, -48)
 
-[node name="Cherry" parent="." instance=ExtResource("9_r05v6")]
-position = Vector2(-59, 14)
+[node name="HUD" type="CanvasLayer" parent="."]
+layer = 2
+offset = Vector2(-144, -80)
+transform = Transform2D(1, 0, 0, 1, -144, -80)
+script = ExtResource("8_d2n8x")
 
-[connection signal="update_hud" from="player" to="HUD" method="_on_update_hud"]
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_right = 134.0
+offset_bottom = 17.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("9_1j5gm")
+theme_override_font_sizes/font_size = 14
+text = "lmaoooooo"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
 
 [editable path="Lever2"]
 [editable path="Lever2/Affected"]
-[editable path="Cherry"]

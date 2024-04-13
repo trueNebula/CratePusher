@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnms7nr8vt8cb"]
+
+[ext_resource type="Script" path="res://src/hud/hud.gd" id="1_nk5aj"]
+[ext_resource type="FontFile" uid="uid://7prgobfxql3c" path="res://src/hud/assets/AGoblinAppears-o2aV.ttf" id="2_p6xur"]
+
+[node name="HUD" type="CanvasLayer"]
+offset = Vector2(-144, -80)
+transform = Transform2D(1, 0, 0, 1, -144, -80)
+follow_viewport_enabled = true
+script = ExtResource("1_nk5aj")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_right = 134.0
+offset_bottom = 17.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_p6xur")
+theme_override_font_sizes/font_size = 7
+text = "Score: 0"
+vertical_alignment = 1
+clip_text = true
