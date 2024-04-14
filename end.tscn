@@ -1,22 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://k1jfv42mo2tu"]
+[gd_scene load_steps=10 format=3 uid="uid://d1qssy8xh64ob"]
 
-[ext_resource type="PackedScene" uid="uid://detiu8koqc7wi" path="res://src/player/player.tscn" id="1_kcp8y"]
-[ext_resource type="PackedScene" uid="uid://cnms7nr8vt8cb" path="res://src/hud/hud.tscn" id="1_kwf57"]
-[ext_resource type="Texture2D" uid="uid://b0jfsbg5328jm" path="res://assets/Sunnyland/environment/tileset.png" id="2_wrox7"]
-[ext_resource type="Texture2D" uid="uid://veu23i2fep4u" path="res://assets/Sunnyland/environment/Background/back.png" id="3_m187a"]
-[ext_resource type="Texture2D" uid="uid://o0f5qnmnfx8b" path="res://assets/Sunnyland/environment/Background/middle.png" id="4_qdstd"]
-[ext_resource type="PackedScene" uid="uid://dcpsl7d8rdadn" path="res://src/objects/interactables/lever/lever.tscn" id="5_77o23"]
-[ext_resource type="PackedScene" uid="uid://vqlse8r4800k" path="res://src/objects/moveables/moveableBox/moveable_box.tscn" id="6_yx6a7"]
-[ext_resource type="PackedScene" uid="uid://c4sc15ubkorc2" path="res://src/objects/pushables/pushableCrate/pushable_crate.tscn" id="7_wu0b4"]
-[ext_resource type="PackedScene" uid="uid://nogf5g3s87ck" path="res://src/objects/collectables/cherry/cherry.tscn" id="9_r05v6"]
-[ext_resource type="PackedScene" uid="uid://dh8dotjehi7e0" path="res://src/objects/door/door.tscn" id="10_2q31c"]
-[ext_resource type="Script" path="res://src/player/player_variables.gd" id="11_wbvif"]
+[ext_resource type="FontFile" uid="uid://7prgobfxql3c" path="res://src/hud/assets/AGoblinAppears-o2aV.ttf" id="1_08x0b"]
+[ext_resource type="Texture2D" uid="uid://b0jfsbg5328jm" path="res://assets/Sunnyland/environment/tileset.png" id="2_0lgg6"]
+[ext_resource type="Texture2D" uid="uid://djtjkc3u6x6kv" path="res://assets/Sunnyland/environment/Props/spikes.png" id="3_bar6e"]
+[ext_resource type="Texture2D" uid="uid://bel50hir15t8y" path="res://assets/Sunnyland/environment/Props/spikes-top.png" id="4_o4bof"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_y0wk6"]
 tile_data = PackedInt32Array(0, 65536, 1, 65536, 65536, 3, 131072, 65536, 5, 1, 196608, 1, 65537, 196608, 3, 131073, 196608, 5, 2, 327680, 1, 65538, 327680, 3, 131074, 327680, 5)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81y4o"]
-texture = ExtResource("2_wrox7")
+texture = ExtResource("2_0lgg6")
 1:1/0 = 0
 1:1/0/z_index = -1
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -388,7 +381,7 @@ texture = ExtResource("2_wrox7")
 11:14/0/z_index = -1
 11:14/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 11:14/0/physics_layer_0/angular_velocity = 0.0
-11:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, -1.5, 0.5, -8, -8)
+11:14/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 1, -8, 1, -8, -8)
 15:14/0 = 0
 15:14/0/z_index = -1
 15:14/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -622,16 +615,23 @@ texture = ExtResource("2_wrox7")
 15:21/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 15:21/0/physics_layer_0/angular_velocity = 0.0
 
-[sub_resource type="TileSet" id="TileSet_atqs4"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4x87i"]
+resource_name = "Spikes"
+texture = ExtResource("3_bar6e")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -0.5, 8, -0.5, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d8r1j"]
+texture = ExtResource("4_o4bof")
+
+[sub_resource type="TileSet" id="TileSet_4xef3"]
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_81y4o")
+sources/2 = SubResource("TileSetAtlasSource_4x87i")
+sources/3 = SubResource("TileSetAtlasSource_d8r1j")
 pattern_0 = SubResource("TileMapPattern_y0wk6")
-
-[sub_resource type="Curve2D" id="Curve2D_yis7q"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -17, -32, 0, 0, 0, 0, 44, -32)
-}
-point_count = 2
 
 [node name="world" type="Node2D"]
 
@@ -643,85 +643,22 @@ limit_right = 144
 limit_bottom = 80
 editor_draw_limits = true
 
-[node name="HUD" parent="." instance=ExtResource("1_kwf57")]
-offset = Vector2(-144, -80)
-transform = Transform2D(1, 0, 0, 1, -144, -80)
+[node name="Label" type="Label" parent="."]
+offset_left = -48.0
+offset_top = -12.0
+offset_right = 46.0
+offset_bottom = 14.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("1_08x0b")
+theme_override_font_sizes/font_size = 14
+text = "YOU WIN"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Background" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_atqs4")
+tile_set = SubResource("TileSet_4xef3")
 format = 2
 layer_0/name = "Ground"
-layer_0/tile_data = PackedInt32Array(-131078, 1245184, 18, -131079, 1114112, 20, -131080, 1245184, 18, -196614, 1245184, 18, -196615, 1245184, 18, -196616, 1245184, 18, -262152, 1114112, 16, -262151, 1179648, 16, -262150, 1245184, 16)
-
-[node name="Foreground" type="TileMap" parent="."]
-tile_set = SubResource("TileSet_atqs4")
-format = 2
-layer_0/name = "Ground"
-layer_0/tile_data = PackedInt32Array(327681, 720896, 10, 327682, 720896, 10, 327683, 720896, 10, 393207, 720896, 10, 393208, 720896, 10, 393209, 720896, 10, 393210, 720896, 10, 393211, 720896, 10, 393212, 720896, 10, 393213, 720896, 10, 393214, 720896, 10, 393215, 720896, 10, 327680, 720896, 10, 327684, 720896, 10, 327685, 720896, 10, 327686, 720896, 10, 327687, 720896, 10, 327688, 720896, 10, 262153, 720896, 10, 196617, 720896, 10, 131081, 720896, 10, 65545, 720896, 10, 9, 720896, 10, -65527, 720896, 10, -131063, 720896, 10, -196599, 720896, 10, -262135, 720896, 10, -327671, 720896, 10, -393208, 720896, 10, -393209, 720896, 10, -393210, 720896, 10, -393211, 720896, 10, -393212, 720896, 10, -393214, 720896, 10, -393207, 720896, 10, 327689, 720896, 10, -262154, 720896, 10, -196618, 720896, 10, -131082, 720896, 10, -65546, 720896, 10, -10, 720896, 10, 65526, 720896, 10, 131062, 720896, 10, 196598, 720896, 10, 393206, 720896, 10, 262134, 720896, 10, 327670, 720896, 10, 262140, 65536, 1, 262141, 196608, 1, 262142, 196608, 1, 262143, 196608, 1, 196608, 196608, 1, 196609, 196608, 1, 196610, 196608, 1, 196613, 196608, 1, -458750, 720896, 10, -524286, 720896, 10, -589822, 720896, 10, -655358, 720896, 10, -720894, 720896, 10, -786430, 720896, 10, -851966, 720896, 10, -851965, 720896, 10, -851964, 720896, 10, -851963, 720896, 10, -786427, 720896, 10, -720891, 720896, 10, -655355, 720896, 10, -589819, 720896, 10, -524283, 720896, 10, -458747, 720896, 10, -65545, 262144, 16, -65544, 65536, 20, -65543, 65536, 20, -65542, 65536, 20, 131074, 983040, 9, 65538, 983040, 9, 2, 983040, 7, 3, 1114112, 7, 4, 1114112, 7, 5, 1245184, 7, 65541, 1245184, 9, 131077, 1245184, 9, 65542, 524288, 3, -524284, 720896, 10, 65537, 655360, 1, 65536, 655360, 1, 131071, 589824, 1, -65541, 524288, 3, 131066, 327680, 1, 131065, 196608, 1, 131064, 196608, 1, 131063, 262144, 16, 196601, 196608, 3, 262137, 327680, 7, 327673, 458752, 7, 196600, 458752, 7, 196599, 262144, 16, 196602, 327680, 3, 262138, 327680, 3, 327676, 720896, 3, 327677, 458752, 7, 327678, 327680, 7, 327679, 458752, 7, 262144, 196608, 3, 262145, 327680, 7, 262146, 458752, 7, -262152, 327680, 15, -262153, 262144, 15, -196617, 262144, 16, -131081, 262144, 16, -9, 262144, 16, 65527, 262144, 16, 262135, 262144, 16, 327671, 262144, 16, 262136, 196608, 3, 327672, 196608, 3, 327674, 458752, 5, 327675, 524288, 5, 196611, 196608, 1, 196612, 196608, 1, 262147, 196608, 3, 262148, 327680, 7, 262149, 196608, 3, 65539, 1114112, 9, 131075, 1114112, 9, 131076, 65536, 20, 65540, 1114112, 9, 131073, 720896, 7, 6, 589824, 7, 196614, 196608, 1, 196615, 196608, 1, 196616, 196608, 1, 262150, 196608, 3, 262151, 196608, 3, 262152, 196608, 3, -196601, 655360, 3, -262136, 65536, 3, -327672, 65536, 3, -196600, 655360, 1, -393215, 720896, 10, -393216, 720896, 10, -327681, 720896, 10, -327682, 720896, 10, -327683, 720896, 10, -327684, 720896, 10, -327685, 720896, 10, -327686, 720896, 10, -327687, 720896, 10, -327688, 720896, 10, -327689, 720896, 10, -327690, 720896, 10)
-
-[node name="door" parent="." instance=ExtResource("10_2q31c")]
-position = Vector2(-104, -48)
-next_scene = "res://world2.tscn"
-
-[node name="player" parent="." instance=ExtResource("1_kcp8y")]
-position = Vector2(-105, 0)
-push_force = 80.0
-
-[node name="Lever2" parent="." instance=ExtResource("5_77o23")]
-position = Vector2(120, -48)
-
-[node name="Affected" parent="Lever2" instance=ExtResource("6_yx6a7")]
-position = Vector2(-48, -24)
-curve = SubResource("Curve2D_yis7q")
-speed = 250.0
-speed_scale = 10.0
-affectable = true
-loop = false
-
-[node name="PathFollow2D" parent="Lever2/Affected" index="0"]
-position = Vector2(-17, -32)
-rotates = true
-
-[node name="AnimatableBody2D" parent="Lever2/Affected" index="1"]
-position = Vector2(-17, -32)
-
-[node name="PushableCrate" parent="." instance=ExtResource("7_wu0b4")]
-position = Vector2(55, -122)
-collision_layer = 1
-collision_mask = 1
-
-[node name="Cherry" parent="." instance=ExtResource("9_r05v6")]
-position = Vector2(-23, 40)
-
-[node name="Cherry2" parent="." instance=ExtResource("9_r05v6")]
-position = Vector2(121, 39)
-
-[node name="Cherry3" parent="." instance=ExtResource("9_r05v6")]
-position = Vector2(-72, -55)
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-
-[node name="Back" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(-4, 24)
-texture = ExtResource("3_m187a")
-
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-
-[node name="Middle" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-position = Vector2(-91, 155)
-texture = ExtResource("4_qdstd")
-
-[node name="Middle2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
-position = Vector2(85, 155)
-texture = ExtResource("4_qdstd")
-
-[node name="PlayerVariables" type="Node" parent="."]
-script = ExtResource("11_wbvif")
-
-[connection signal="player_dead" from="player" to="HUD" method="_on_player_dead"]
-[connection signal="update_hud" from="player" to="HUD" method="_on_update_hud"]
-
-[editable path="Lever2"]
-[editable path="Lever2/Affected"]
+layer_0/tile_data = PackedInt32Array(-196616, 589824, 20, -131080, 589824, 21, -196615, 655360, 20, -131079, 655360, 21, -196614, 720896, 20, -131078, 720896, 21, -262150, 1376256, 18, -262151, 1376256, 18, -262152, 1376256, 18, -262153, 1376256, 18, -196617, 1376256, 18, -131081, 1376256, 18, -65545, 1114112, 16, -9, 1376256, 18, 65527, 1376256, 18, 131063, 1376256, 18, 196599, 1114112, 16, 262135, 1179648, 16, 327671, 1245184, 16, 327672, 1376256, 18, 327673, 1376256, 18, 327674, 1376256, 18, 327675, 1376256, 18, 327676, 1376256, 18, 327677, 1376256, 18, 327678, 1376256, 18, 262146, 1245184, 18, 262147, 1245184, 18, 262148, 1245184, 18, 262149, 1245184, 18, 262150, 1245184, 18, 262151, 1245184, 18, 262152, 1245184, 18, 65544, 1376256, 18, 8, 1376256, 18, -65528, 1245184, 16, -131064, 1179648, 16, -196600, 1114112, 16, -262136, 1376256, 18, -327672, 1376256, 18, -327673, 1376256, 18, -327674, 1376256, 18, -327675, 1376256, 18, -327676, 1376256, 18, -327677, 1376256, 18, -327678, 1376256, 18, -327679, 1376256, 18, -327680, 1376256, 18, -262146, 1376256, 18, -262147, 1376256, 18, -262148, 1376256, 18, -262149, 1376256, 18, -65544, 1179648, 16, -8, 1376256, 18, 65528, 1376256, 18, 131064, 1114112, 16, 196600, 1179648, 16, 262136, 1245184, 16, 262137, 1376256, 18, 196601, 1245184, 16, 131065, 1179648, 16, 65529, 1114112, 16, -7, 1376256, 18, -65543, 720896, 16, -65542, 720896, 16, -6, 1114112, 16, 65530, 1179648, 16, 131066, 1245184, 16, 196602, 1376256, 18, 262138, 1376256, 18, 262139, 1376256, 18, 262140, 917504, 18, 196604, 917504, 17, 196603, 1376256, 18, 131067, 1376256, 18, 65531, 1245184, 16, -5, 1179648, 16, -65541, 720896, 16, -131077, 917504, 21, -4, 1245184, 16, 65532, 1376256, 18, 131068, 917504, 16, 196605, 983040, 17, 262141, 983040, 18, 262142, 1376256, 18, 196606, 655360, 18, 131070, 1376256, 18, 65534, 1376256, 18, -2, 1376256, 18, -3, 1376256, 18, -65539, 1376256, 18, -131075, 1376256, 18, -196611, 1376256, 18, -196610, 1376256, 18, -196609, 589824, 14, -262144, 1376256, 18, -196608, 1376256, 18, -196607, 1376256, 18, -196606, 1376256, 18, -196605, 1376256, 18, -262141, 1376256, 18, -262140, 1376256, 18, -262139, 1376256, 18, -262138, 1376256, 18, -262137, 1376256, 18, -262142, 1376256, 18, -262143, 1376256, 18, -131074, 1376256, 18, -65538, 1376256, 18, 65533, 1376256, 18, 131069, 983040, 16, 131071, 720896, 18, 65535, 720896, 17, -1, 1376256, 18, -65537, 1376256, 18, -131073, 589824, 15, 65536, 786432, 18, 0, 1376256, 18, 1, 1376256, 18, 2, 1376256, 18, -65534, 1376256, 18, -65535, 1376256, 18, 196607, 720896, 18, 131072, 1376256, 18, 131073, 1376256, 18, 131074, 1376256, 18, 131075, 1114112, 16, 131076, 1179648, 16, 196611, 1245184, 18, 196610, 1245184, 18, 196609, 1114112, 16, 196612, 1245184, 16, 196613, 589824, 21, 196615, 851968, 21, 262143, 720896, 18, 131079, 851968, 20, 65543, 1376256, 18, 65542, 1245184, 16, 65541, 1179648, 16, 65540, 1114112, 16, 65539, 1376256, 18, 65538, 1376256, 18, 65537, 1376256, 18, 3, 1376256, 18, 4, 1376256, 18, 5, 1114112, 16, 6, 1179648, 16, -65530, 1114112, 16, -65531, 1376256, 18, -65532, 1376256, 18, -65533, 1376256, 18, -65536, 1376256, 18, -131068, 1376256, 18, -131067, 1376256, 18, -131066, 1376256, 18, -131065, 1114112, 16, -196601, 1376256, 18, -196602, 1376256, 18, -196603, 1376256, 18, -196604, 1376256, 18, -131072, 1376256, 18, -131071, 1376256, 18, -131070, 1376256, 18, -131069, 1376256, 18, -65529, 1179648, 16, 7, 1245184, 16, -196612, 983040, 20, -196613, 917504, 20, -131076, 983040, 21, -65540, 1245184, 16, 131077, 1245184, 16, 196608, 1376256, 18, 262144, 1376256, 18, 327679, 720896, 18, 262145, 1179648, 16, 131078, 655360, 20, 196614, 655360, 21, 131080, 917504, 20, 196616, 917504, 21, -262145, 1245184, 18)

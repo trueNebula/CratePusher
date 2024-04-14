@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctmf8ompjkrad"]
+[gd_scene load_steps=8 format=3 uid="uid://wh4oqnqxhtgy"]
 
-[ext_resource type="Script" path="res://src/objects/moveables/moveable.gd" id="1_j34xk"]
+[ext_resource type="Script" path="res://src/objects/moveables/multipleMoveableBox/multiple_moveable_box.gd" id="1_ns7ce"]
+[ext_resource type="Texture2D" uid="uid://bit0nitks4pu2" path="res://src/objects/moveables/multipleMoveableBox/assets/small-platform.png" id="2_tv6ht"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_er2qw"]
 size = Vector2(16, 16)
@@ -57,8 +58,8 @@ _data = {
 "move_once": SubResource("Animation_w0vcv")
 }
 
-[node name="Moveable" type="Path2D"]
-script = ExtResource("1_j34xk")
+[node name="MutlipleMoveableBox" type="Path2D"]
+script = ExtResource("1_ns7ce")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotates = false
@@ -75,3 +76,6 @@ shape = SubResource("RectangleShape2D_er2qw")
 libraries = {
 "": SubResource("AnimationLibrary_288mk")
 }
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_tv6ht")

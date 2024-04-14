@@ -1,5 +1,5 @@
 extends Collectable
 
 func _init():
-	type = "Cherry"
-	props = { "score": 100 }
+    type = "Cherry"
+    props = { "score": 100 }
