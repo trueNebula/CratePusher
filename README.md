@@ -17,4 +17,3 @@ Made using the Godot, art by [ansimuz](https://ansimuz.itch.io/sunny-land-pixel-
     - Composite is used internally in the engine, Bridge is used as part of multiple components (State Machine, Player, Objects)
 - Behavioral: State
     - Used for the State Machine controlling Player movement
-
